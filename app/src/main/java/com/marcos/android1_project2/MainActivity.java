@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class MainActivity extends AppCompatActivity {
-    private Button btnAddContato;
+    private FloatingActionButton btnAddContato;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         btnAddContato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CriaContatoActivity.class);
+                Intent intent = new Intent(MainActivity.this, UploadActivity.class);
                 startActivity(intent);
             }
         });
