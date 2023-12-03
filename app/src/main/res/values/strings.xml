@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Android1-project2</string>
     <string name="addContact">Criar Contato</string>
+    <string name="editContact">Editar Contato</string>
     <string name="name">Nome</string>
     <string name="phone">Telefone</string>
     <string name="mail">Email</string>

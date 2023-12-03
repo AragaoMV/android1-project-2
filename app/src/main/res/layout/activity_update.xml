@@ -7,8 +7,8 @@
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
     android:padding="40dp"
-    android:background="@color/off_white"
-    tools:context=".UploadActivity">
+    tools:context=".UpdateActivity"
+    android:background="@color/off_white">
 
 
     <TextView
@@ -57,9 +57,10 @@
         android:id="@+id/btnSalvar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="@string/save"
-        android:textSize="16sp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/red"
-        android:layout_marginTop="20dp"/>
+        android:onClick="salvar"
+        android:text="@string/save"
+        android:textSize="16sp" />
 
 </LinearLayout>
