@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "547068681198",
-    "project_id": "android1-project2",
-    "storage_bucket": "android1-project2.appspot.com"
+    "project_number": "1047887925188",
+    "project_id": "projeto-android1",
+    "storage_bucket": "projeto-android1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:547068681198:android:074ab898aefcfe8beb0cff",
+        "mobilesdk_app_id": "1:1047887925188:android:055ad5eedbe820eec61e91",
         "android_client_info": {
           "package_name": "com.marcos.android1_project2"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyArMelUNi7u1mrY64FRdUnC6koMJQvEIiw"
+          "current_key": "AIzaSyCsBdy9UFfBhJUk_jupqQB5dXwZa5dytlo"
         }
       ],
       "services": {

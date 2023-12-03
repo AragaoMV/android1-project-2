@@ -2,27 +2,26 @@ package com.marcos.android1_project2;
 
 public class DataClass {
 
-
-    public DataClass(String dataName, String dataPhone, String dataMail) {
-        this.dataName = dataName;
-        this.dataPhone = dataPhone;
-        this.dataMail = dataMail;
-    }
+    private String addName;
+    private String addPhone;
+    private String addMail;
 
     public String getDataName() {
-        return dataName;
+        return addName;
     }
 
     public String getDataPhone() {
-        return dataPhone;
+        return addPhone;
     }
 
     public String getDataMail() {
-        return dataMail;
+        return addMail;
     }
 
-    private String dataName;
-    private String dataPhone;
-    private String dataMail;
+    public DataClass(String addName, String addPhone, String addMail) {
+        this.addName = addName;
+        this.addPhone = addPhone;
+        this.addMail = addMail;
 
+    }
 }

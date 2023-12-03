@@ -24,14 +24,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+
 
 public class UploadActivity extends AppCompatActivity {
 
     Button btnSaveData;
     EditText addName, addPhone, addMail;
-    Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,49 +41,50 @@ public class UploadActivity extends AppCompatActivity {
         addPhone = findViewById(R.id.addPhone);
         addMail = findViewById(R.id.addMail);
 
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+        ActivityResultLauncher<Intent>activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == Activity.RESULT_OK){
                             Intent data = result.getData();
+                        }else {
+                            Toast.makeText(UploadActivity.this, "nADA sELECIONADO   ", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
         );
 
-
         btnSaveData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SaveData();
-               // Intent intent = new Intent(UploadActivity.this, MainActivity.class);
-             //   startActivity(intent);
             }
         });
 
     }
 
     public void SaveData(){
-        String name = addName.getText().toString();
-        String mail = addMail.getText().toString();
-        String phone = addPhone.getText().toString();
+      String name = addName.getText().toString();
+      String mail = addMail.getText().toString();
+      String phone = addPhone.getText().toString();
 
-        DataClass dataClass = new DataClass(name,mail,phone);
+      DataClass dataClass = new DataClass(name,mail,phone);
 
-        FirebaseDatabase.getInstance().getReference("Contatos").child(name).setValue(dataClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(UploadActivity.this,"Salvo com Sucesso",Toast.LENGTH_SHORT).show();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UploadActivity.this,e.getMessage().toString(),Toast.LENGTH_SHORT).show();
-            }
-        });
+      FirebaseDatabase.getInstance().getReference("Contatos").child(name).setValue(dataClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+          @Override
+          public void onComplete(@NonNull Task<Void> task) {
+              if (task.isSuccessful()){
+                  Toast.makeText(UploadActivity.this, "Salvo", Toast.LENGTH_SHORT).show();
+                  finish();
+              }
+          }
+      }).addOnFailureListener(new OnFailureListener() {
+          @Override
+          public void onFailure(@NonNull Exception e) {
+              Toast.makeText(UploadActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+          }
+      });
+
     }
 }
