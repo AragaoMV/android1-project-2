@@ -63,5 +63,13 @@
         android:textSize="16sp"
         android:backgroundTint="@color/red"
         android:layout_marginTop="20dp"/>
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/delete"
+        android:textSize="16sp"
+        android:backgroundTint="@color/red"
+        android:layout_marginTop="20dp"/>
 
 </LinearLayout>
