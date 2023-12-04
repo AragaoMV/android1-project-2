@@ -6,4 +6,5 @@
     <string name="phone">Telefone</string>
     <string name="mail">Email</string>
     <string name="save">Salvar Contato</string>
+    <string name="title">Lista de Contatos</string>
 </resources>

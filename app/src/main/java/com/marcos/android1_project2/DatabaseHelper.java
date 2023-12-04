@@ -5,92 +5,66 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME= "ContatoDB";
-    private static final String TABLE_NAME= "ListaContato";
-    private final static   String KEY_ID = "id";
-    private static final  String KEY_NAME = "name";
-    private static final  String KEY_EMAIL = "email";
-    private static final  String KEY_PHONE = "phone";
-
-    public DatabaseHelper(Context context){
-        super(context, DATABASE_NAME,null,DATABASE_VERSION);
+    private Context context;
+    private static final String DATABASE_NAME= "Contatos.db";
+    private static final int DATABASE_VERSION= 1;
+    private static final String TABLE_NAME= "lista_contato";
+    private static final String COLUMN_ID = "_id";
+    private static final String COLUMN_NAME = "name";
+    private static final String COLUMN_EMAIL = "mail";
+    private static final String COLUMN_PHONE = "phone";
+    public DatabaseHelper(@Nullable Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        String query = "CREATE TABLE " + TABLE_NAME +
+                " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_NAME + " TEXT, " +
+                COLUMN_EMAIL + " TEXT, "+
+                COLUMN_PHONE + " INTEGER);";
+        db.execSQL(query);
 
-        String createTableSQL = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(" +
-                KEY_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                KEY_NAME + " TEXT, "+
-                KEY_EMAIL + " TEXT, "+
-                KEY_PHONE + " TEXT " + ")";
-
-        db.execSQL(createTableSQL);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
+    void addContact(String name, String email, int phone){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
 
-    public long addContato(Contato contato){
-        SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(KEY_NAME, contato.getName());
-        values.put(KEY_EMAIL, contato.getEmail());
-        values.put(KEY_PHONE, contato.getPhone());
+        cv.put(COLUMN_NAME,name);
+        cv.put(COLUMN_EMAIL,email);
+        cv.put(COLUMN_PHONE,phone);
 
-        long id = database.insert(TABLE_NAME, null,values);
-        database.close();
-        return id;
+       long result = db.insert(TABLE_NAME, null, cv);
+       if (result == -1){
+           Toast.makeText(context, "Falha ao Criar", Toast.LENGTH_SHORT).show();
+       }else {
+           Toast.makeText(context, "Contato Criado", Toast.LENGTH_SHORT).show();
+       }
     }
-    public List<Contato> getAllContato(){
-        List<Contato> contatoList = new ArrayList<>();
-        String SQL = "SELECT * FROM " +  TABLE_NAME;
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery(SQL, null);
-
-        if(cursor.moveToFirst()){
-            do {
-                Contato contato = new Contato(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getString(3)
-                );
-                contatoList.add(contato);
-            }while (cursor.moveToNext());
+    Cursor readAllData(){
+        String query = "SELECT * FROM "+ TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        if (db != null){
+           cursor = db.rawQuery(query, null);
         }
-        cursor.close();
-        sqLiteDatabase.close();
-        return contatoList;
-    }
-    public int updateContato(Contato contato){
-        SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_NAME,contato.getName());
-        contentValues.put(KEY_PHONE,contato.getPhone());
-        contentValues.put(KEY_EMAIL,contato.getEmail());
-
-        int rowsAffected = database.update(TABLE_NAME, contentValues, KEY_ID+ " = ? ",
-                new String[] {String.valueOf(contato.getId())});
-
-        database.close();
-        return rowsAffected;
-    }
-
-    public int deleteContato(int contatoId){
-        SQLiteDatabase database = this.getWritableDatabase();
-        int rowsAffected = database.delete(TABLE_NAME, KEY_ID + " = ?", new String[]{String.valueOf(contatoId)});
-        database.close();
-        return rowsAffected;
+        return cursor;
     }
 }
