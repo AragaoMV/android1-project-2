@@ -27,8 +27,15 @@ public class UpdateActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Obtenha os dados atualizados do usuário a partir dos campos de texto
+                String updatedName = update_name.getText().toString();
+                String updatedEmail = update_email.getText().toString();
+                String updatedPhone = update_phone.getText().toString();
+
                 DatabaseHelper databaseHelper = new DatabaseHelper(UpdateActivity.this);
-                databaseHelper.updateData(id, name, email, phone);
+                databaseHelper.updateData(id, updatedName, updatedEmail, updatedPhone);
+                Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
