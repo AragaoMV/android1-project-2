@@ -22,7 +22,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_EMAIL = "mail";
     private static final String COLUMN_PHONE = "phone";
-    public DatabaseHelper(@Nullable Context context) {
+
+     DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
@@ -66,5 +67,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
            cursor = db.rawQuery(query, null);
         }
         return cursor;
+    }
+    void updateData(String row_id, String name,String email,String phone){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_NAME, name);
+        cv.put(COLUMN_EMAIL, email);
+        cv.put(COLUMN_PHONE, phone);
+
+        long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Falha ao atualizar", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Atualizado com Sucesso!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

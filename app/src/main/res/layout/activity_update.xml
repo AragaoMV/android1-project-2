@@ -21,7 +21,7 @@
         android:textColor="@color/black"/>
 
     <EditText
-        android:id="@+id/nome"
+        android:id="@+id/update_name"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/red_border"
@@ -32,35 +32,36 @@
         android:fontFamily="sans-serif-black"/>
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/update_email"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/red_border"
         android:layout_marginTop="20dp"
         android:padding="16dp"
         android:hint="@string/mail"
+        android:inputType="textEmailAddress"
         android:textColorHint="@color/black"
         android:fontFamily="sans-serif-black"/>
 
     <EditText
-        android:id="@+id/telefone"
+        android:id="@+id/update_phone"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/red_border"
         android:layout_marginTop="20dp"
         android:padding="16dp"
         android:hint="@string/phone"
+        android:inputType="phone"
         android:textColorHint="@color/black"
         android:fontFamily="sans-serif-black"/>
 
     <Button
-        android:id="@+id/btnSalvar"
+        android:id="@+id/btnUpdate"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/red"
-        android:onClick="salvar"
         android:text="@string/save"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:backgroundTint="@color/red"
+        android:layout_marginTop="20dp"/>
 
 </LinearLayout>
